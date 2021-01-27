@@ -6,6 +6,10 @@ drop table events;
 drop table user_table;
 drop table transaction_movie;
 drop table transaction_event;
+DROP TABLE CART;
+DROP TABLE FOOD_CART;
+DROP TABLE FOOD;
+DROP TABLE PRICE_DETAILS;
 
 --Drop procedure statements
 drop procedure p_show_movie_details;
@@ -33,6 +37,7 @@ select * from transaction_event;
 SELECT * FROM CART;
 SELECT * FROM FOOD;
 SELECT * FROM FOOD_CART;
+SELECT * FROM PRICE_DETAILS;
 
 -- Delete statements
 delete from movies;
@@ -41,6 +46,9 @@ delete from slot_selection where
 delete from transaction_movie WHERE transaction_id = 'TM00081';
 delete from transaction_event where transaction_id = 'TE00021';
 delete from user_table where user_id = 'U100';
+DELETE FROM CART WHERE CART_ID='C0062';
+DELETE FROM FOOD_CART WHERE FOOD_ID='F0001';
+DELETE FROM PRICE_DETAILS WHERE USER_ID='U103';
 
 
 -- Movies Table
@@ -139,6 +147,15 @@ create table food_cart(
     cart_id varchar2(10) references cart(cart_id),
     quantity number,
     price number
+);
+
+-- Initial Details table
+create table price_details(
+    user_id varchar2(10) references user_table(user_id),
+    total_price number,
+    total_ticket_price number,
+    total_food_price number,
+    cashback varchar2(20)
 );
 
 --Insert into Movies table
