@@ -35,33 +35,18 @@ END;
 /
 
 
---Auto Increment Transaction event id--
-create sequence tran_event_seq;
+--Auto Increment Transaction id--
+create sequence tran_seq;
 
-create or replace trigger auto_increment_trans_event_id
+create or replace trigger auto_increment_trans_id
 before insert
-on transaction_event
+on transaction_table
 REFERENCING new as NEW
 for each row
 declare x number;
 begin
-    select tran_event_seq.nextval into x from dual;
-    :new.transaction_id:='TE'||'000'||to_char(x);
-END;
-/
-
---Auto Increment Transaction movie id--
-create sequence tran_movie_seq;
-
-create or replace trigger auto_increment_trans_movie_id
-before insert
-on transaction_movie
-REFERENCING new as NEW
-for each row
-declare x number;
-begin
-    select tran_movie_seq.nextval into x from dual;
-    :new.transaction_id:='TM'||'000'||to_char(x);
+select tran_seq.nextval into x from dual;
+:new.transaction_id:='T'||'000'||to_char(x);
 END;
 /
 

@@ -32,8 +32,7 @@ select * from events;
 select * from cinema_hall;
 select * from slot_selection;
 select * from user_table;
-select * from transaction_movie;
-select * from transaction_event;
+select * from transaction_table;
 SELECT * FROM CART;
 SELECT * FROM FOOD;
 SELECT * FROM FOOD_CART;
@@ -122,6 +121,36 @@ create table transaction_event(
     event_id VARCHAR2(30) references events(event_id),
     user_id VARCHAR2(10) references user_table(user_id)
 );
+
+-- Transaction table
+create table transaction_table(
+    transaction_id varchar(10) primary key,
+    payment_date date,
+    show_id varchar(5),
+    total_price number,
+    total_ticket_price number,
+    user_id varchar2(10) references user_table(user_id),
+    no_of_tickets number
+);
+
+SELECT * FROM TRANSACTION_TABLE;
+
+insert into transaction_table(PAYMENT_DATE,
+                                show_id,
+                                total_price,
+                                TOTAL_TICKET_PRICE,
+                                user_id,
+                                NO_OF_TICKETS
+                                ) VALUES
+                            (
+                                SYSDATE,
+                                'S0001',
+                                200,
+                                200,
+                                'U101',
+                                2
+                            );
+
 
 -- Cart table
 create table cart(
@@ -250,5 +279,10 @@ insert into slot_selection(movie_name, hall_id, time_slot, seat_availability, pr
 
 INSERT INTO FOOD(FOOD_NAME, PRICE) VALUES ('TEST', 100);
 
-select * from events;
+select SUBSTRING('SQL TUTORIAL', 2, 3) AS ABCD;
+
+
+
+
+
 
